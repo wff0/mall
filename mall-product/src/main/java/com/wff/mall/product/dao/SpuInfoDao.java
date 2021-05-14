@@ -5,11 +5,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * spu??Ϣ
+ * spu信息
  * 
  * @author wangfengfan
  * @email 1098137961@qq.com
- * @date 2021-05-03 10:16:29
+ * @date 2021-05-07 20:23:14
  */
 @Mapper
 public interface SpuInfoDao extends BaseMapper<SpuInfoEntity> {

@@ -8,11 +8,11 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * ????&???Է???????
+ * 属性&属性分组关联
  * 
  * @author wangfengfan
  * @email 1098137961@qq.com
- * @date 2021-05-03 10:16:29
+ * @date 2021-05-07 20:23:14
  */
 @Data
 @TableName("pms_attr_attrgroup_relation")
@@ -25,15 +25,15 @@ public class AttrAttrgroupRelationEntity implements Serializable {
 	@TableId
 	private Long id;
 	/**
-	 * ????id
+	 * 属性id
 	 */
 	private Long attrId;
 	/**
-	 * ???Է???id
+	 * 属性分组id
 	 */
 	private Long attrGroupId;
 	/**
-	 * ???????????
+	 * 属性组内排序
 	 */
 	private Integer attrSort;
 

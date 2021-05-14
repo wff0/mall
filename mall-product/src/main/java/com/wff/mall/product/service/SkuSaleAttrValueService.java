@@ -7,11 +7,11 @@ import com.wff.mall.product.entity.SkuSaleAttrValueEntity;
 import java.util.Map;
 
 /**
- * sku????????&ֵ
+ * sku销售属性&值
  *
  * @author wangfengfan
  * @email 1098137961@qq.com
- * @date 2021-05-03 10:16:29
+ * @date 2021-05-07 20:23:14
  */
 public interface SkuSaleAttrValueService extends IService<SkuSaleAttrValueEntity> {
 

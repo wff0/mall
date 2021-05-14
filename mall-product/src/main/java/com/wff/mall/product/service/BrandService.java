@@ -7,14 +7,16 @@ import com.wff.mall.product.entity.BrandEntity;
 import java.util.Map;
 
 /**
- * Ʒ?
+ * 品牌
  *
  * @author wangfengfan
  * @email 1098137961@qq.com
- * @date 2021-05-03 10:16:29
+ * @date 2021-05-07 20:23:14
  */
 public interface BrandService extends IService<BrandEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void updateDetail(BrandEntity brand);
 }
 
