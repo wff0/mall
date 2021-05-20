@@ -29,7 +29,7 @@ public class MallExcepetionControllerAdvice {
             map.put(field, message);
         });
         log.error("数据校验出现的错误{},异常类型{}", e.getMessage(), e.getClass());
-        return R.error(BizCodeEnum.VALID_EXCEPTION.getCode(), BizCodeEnum.VALID_EXCEPTION.getMsg()).put("data", map);
+        return R.error(BizCodeEnum.VAILD_EXCEPTION.getCode(), BizCodeEnum.VAILD_EXCEPTION.getMsg()).put("data", map);
     }
 
     @ExceptionHandler(value = Throwable.class)//异常的范围更大
@@ -37,7 +37,7 @@ public class MallExcepetionControllerAdvice {
         log.error("未知异常{},异常类型{}",
                 throwable.getMessage(),
                 throwable.getClass());
-        return R.error(BizCodeEnum.UNKNOW_EXEPTION.getCode(),
-                BizCodeEnum.UNKNOW_EXEPTION.getMsg());
+        return R.error(BizCodeEnum.UNKNOW_EXCEPTION.getCode(),
+                BizCodeEnum.UNKNOW_EXCEPTION.getMsg());
     }
 }
