@@ -7,16 +7,12 @@
         <groupId>com.wff.mall</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+
     <groupId>com.wff.mall</groupId>
     <artifactId>mall-coupon</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>mall-coupon</name>
     <description>Demo project for Spring Boot</description>
-<!--    <properties>-->
-<!--        <java.version>11</java.version>-->
-<!--        <spring-cloud.version>Hoxton.SR11</spring-cloud.version>-->
-<!--        <spring-cloud.version>2020.0.2</spring-cloud.version>-->
-<!--    </properties>-->
     <dependencies>
         <dependency>
             <groupId>com.wff.mall</groupId>

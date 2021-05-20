@@ -68,7 +68,6 @@ public class AttrController {
     @RequestMapping("/info/{attrId}")
     //@RequiresPermissions("product:attr:info")
     public R info(@PathVariable("attrId") Long attrId) {
-//		AttrEntity attr = attrService.getById(attrId);
 
         AttrRespVo respVo = attrService.getAttrInfo(attrId);
 

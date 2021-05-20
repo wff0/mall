@@ -1,4 +1,4 @@
-package com.wff.mall.serach.config;
+package com.wff.mall.search.config;
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RequestOptions;

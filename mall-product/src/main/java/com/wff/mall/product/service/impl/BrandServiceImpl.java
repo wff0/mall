@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -42,11 +43,17 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
     @Override
     public void updateDetail(BrandEntity brand) {
         this.updateById(brand);
-        if (StringUtils.hasLength(brand.getName())){
+        if (StringUtils.hasLength(brand.getName())) {
             categoryBrandRelationService.updateBrand(brand.getBrandId(), brand.getName());
 
             //TODO 更新其他关联
         }
+    }
+
+    @Override
+    public List<BrandEntity> getBrandByIds(List<Long> brandIds) {
+
+        return baseMapper.selectList(new QueryWrapper<BrandEntity>().in("brand_id", brandIds));
     }
 
 }

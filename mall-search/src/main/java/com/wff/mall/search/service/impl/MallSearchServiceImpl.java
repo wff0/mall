@@ -1,12 +1,17 @@
-package com.wff.mall.serach.service.impl;
+package com.wff.mall.search.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.wff.common.to.es.SkuEsModel;
-import com.wff.mall.serach.config.MallElasticsearchConfig;
-import com.wff.mall.serach.constant.EsConstant;
-import com.wff.mall.serach.service.MallSearchService;
-import com.wff.mall.serach.vo.SearchParam;
-import com.wff.mall.serach.vo.SearchResult;
+import com.wff.common.utils.R;
+import com.wff.mall.search.config.MallElasticsearchConfig;
+import com.wff.mall.search.constant.EsConstant;
+import com.wff.mall.search.feign.ProductFeignService;
+import com.wff.mall.search.service.MallSearchService;
+import com.wff.mall.search.vo.AttrResponseVo;
+import com.wff.mall.search.vo.BrandVo;
+import com.wff.mall.search.vo.SearchParam;
+import com.wff.mall.search.vo.SearchResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.action.search.SearchRequest;
@@ -28,6 +33,7 @@ import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +41,8 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,6 +58,9 @@ public class MallSearchServiceImpl implements MallSearchService {
 
     @Autowired
     private RestHighLevelClient client;
+
+    @Autowired
+    private ProductFeignService productFeignService;
 
     @Override
     public SearchResult search(SearchParam param) {
@@ -185,7 +196,7 @@ public class MallSearchServiceImpl implements MallSearchService {
      * @param response
      * @return
      */
-    private SearchResult buildSearchResult(SearchResponse response, SearchParam Param) {
+    private SearchResult buildSearchResult(SearchResponse response, SearchParam param) {
         SearchResult result = new SearchResult();
         // 1.返回的所有查询到的商品
         SearchHits hits = response.getHits();
@@ -195,6 +206,13 @@ public class MallSearchServiceImpl implements MallSearchService {
                 String sourceAsString = hit.getSourceAsString();
                 SkuEsModel skuEsModel = new SkuEsModel();
                 skuEsModel = JSON.parseObject(sourceAsString, SkuEsModel.class);
+                if (StringUtils.hasLength(param.getKeyword())) {
+                    // 1.1 获取标题的高亮属性
+                    HighlightField skuTitle = hit.getHighlightFields().get("skuTitle");
+                    String highlightFields = skuTitle.getFragments()[0].string();
+                    // 1.2 设置文本高亮
+                    skuEsModel.setSkuTitle(highlightFields);
+                }
                 skuEsModels.add(skuEsModel);
             }
         }
@@ -247,9 +265,9 @@ public class MallSearchServiceImpl implements MallSearchService {
         List<? extends Terms.Bucket> buckets = catalogAgg.getBuckets();
         for (Terms.Bucket bucket : buckets) {
             SearchResult.CatalogVo catalogVo = new SearchResult.CatalogVo();
-            //4.1得到分类id
+            //4.1 得到分类id
             catalogVo.setCatalogId(bucket.getKeyAsNumber().longValue());
-            //4.2得到分类名
+            //4.2 得到分类名
             ParsedStringTerms catalogNameAgg = bucket.getAggregations().get("catalogNameAgg");
             catalogVo.setCatalogName(catalogNameAgg.getBuckets().get(0).getKeyAsString());
             catalogVos.add(catalogVo);
@@ -258,18 +276,82 @@ public class MallSearchServiceImpl implements MallSearchService {
 
         // ================以上信息从聚合信息中获取
         // 5.分页信息-页码
-        result.setPageNum(Param.getPageNum());
+        result.setPageNum(param.getPageNum());
         // 总记录数
         result.setTotal(hits.getTotalHits().value);
         // 总页码：计算得到
         result.setTotalPages((int) (result.getTotal() + EsConstant.PRODUCT_PASIZE - 1) / EsConstant.PRODUCT_PASIZE);
         // 设置导航页
+        ArrayList<Integer> pageNavs = new ArrayList<>();
+        for (int i = 1; i <= result.getTotalPages(); i++) {
+            pageNavs.add(i);
+        }
+        result.setPageNavs(pageNavs);
 
         // 6.构建面包屑导航功能
-
+        if (!ObjectUtils.isEmpty(param.getAttrs())) {
+            List<SearchResult.NavVo> navVos = param.getAttrs().stream().map(attr -> {
+                SearchResult.NavVo navVo = new SearchResult.NavVo();
+                String[] s = attr.split("_");
+                navVo.setNavValue(s[1]);
+                R r = productFeignService.getAttrsInfo(Long.parseLong(s[0]));
+                // 将已选择的请求参数添加进去 前端页面进行排除
+                result.getAttrIds().add(Long.parseLong(s[0]));
+                if (r.getCode() == 0) {
+                    AttrResponseVo data = r.getData("attr", new TypeReference<AttrResponseVo>() {
+                    });
+                    navVo.setName(data.getAttrName());
+                } else {
+                    // 失败了就拿id作为名字
+                    navVo.setName(s[0]);
+                }
+                // 拿到所有查询条件 替换查询条件
+                String replace = replaceQueryString(param, attr, "attrs");
+                navVo.setLink("http://search.mall.com/list.html?" + replace);
+                return navVo;
+            }).collect(Collectors.toList());
+            result.setNavs(navVos);
+        }
         // 品牌、分类
+        if (!ObjectUtils.isEmpty(param.getBrandId())) {
+            List<SearchResult.NavVo> navs = result.getNavs();
+            SearchResult.NavVo navVo = new SearchResult.NavVo();
+            navVo.setName("品牌");
+            // TODO 远程查询所有品牌
+            R r = productFeignService.brandInfo(param.getBrandId());
+            if (r.getCode() == 0) {
+                List<BrandVo> brand = r.getData("brand", new TypeReference<List<BrandVo>>() {
+                });
+                StringBuffer buffer = new StringBuffer();
+                // 替换所有品牌ID
+                String replace = "";
+                for (BrandVo brandVo : brand) {
+                    buffer.append(brandVo.getName()).append(";");
+                    replace = replaceQueryString(param, brandVo.getBrandId() + "", "brandId");
+                }
+                navVo.setNavValue(buffer.toString());
+                navVo.setLink("http://search.mall.com/list.html?" + replace);
+            }
+            navs.add(navVo);
+        }
 
         return result;
     }
 
+    /**
+     * 替换字符
+     * key ：需要替换的key
+     */
+    private String replaceQueryString(SearchParam param, String value, String key) {
+        String encode = null;
+        try {
+            encode = URLEncoder.encode(value, "UTF-8");
+            // 浏览器对空格的编码和java的不一样
+            encode = encode.replace("+", "%20");
+            encode = encode.replace("%28", "(").replace("%29", ")");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return param.get_queryString().replace("&" + key + "=" + encode, "");
+    }
 }

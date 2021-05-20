@@ -1,9 +1,9 @@
-package com.wff.mall.serach.controller;
+package com.wff.mall.search.controller;
 
 import com.wff.common.exception.BizCodeEnum;
 import com.wff.common.to.es.SkuEsModel;
 import com.wff.common.utils.R;
-import com.wff.mall.serach.service.ProductSaveService;
+import com.wff.mall.search.service.ProductSaveService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

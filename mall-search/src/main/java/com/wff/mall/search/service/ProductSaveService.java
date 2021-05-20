@@ -1,4 +1,4 @@
-package com.wff.mall.serach.service;
+package com.wff.mall.search.service;
 
 import com.wff.common.to.es.SkuEsModel;
 

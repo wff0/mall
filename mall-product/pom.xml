@@ -7,6 +7,7 @@
         <groupId>com.wff.mall</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+
     <groupId>com.wff.mall</groupId>
     <artifactId>mall-product</artifactId>
     <version>0.0.1-SNAPSHOT</version>

@@ -1,7 +1,7 @@
-package com.wff.mall.serach.service;
+package com.wff.mall.search.service;
 
-import com.wff.mall.serach.vo.SearchParam;
-import com.wff.mall.serach.vo.SearchResult;
+import com.wff.mall.search.vo.SearchParam;
+import com.wff.mall.search.vo.SearchResult;
 
 /**
  * @author wff

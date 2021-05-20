@@ -1,4 +1,4 @@
-package com.wff.mall.serach.vo;
+package com.wff.mall.search.vo;
 
 import com.wff.common.to.es.SkuEsModel;
 import lombok.Data;

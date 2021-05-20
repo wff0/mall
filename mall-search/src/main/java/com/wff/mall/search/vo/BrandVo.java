@@ -1,4 +1,4 @@
-package com.wff.mall.serach.vo;
+package com.wff.mall.search.vo;
 
 import lombok.Data;
 
@@ -16,5 +16,5 @@ public class BrandVo {
      */
     private Long brandId;
 
-    private String  brandName;
+    private String name;
 }

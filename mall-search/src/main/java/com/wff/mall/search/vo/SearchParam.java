@@ -1,4 +1,4 @@
-package com.wff.mall.serach.vo;
+package com.wff.mall.search.vo;
 
 import lombok.Data;
 
@@ -27,7 +27,7 @@ public class SearchParam {
 
     private String sort;
 
-    private Integer hasStock = 1;
+    private Integer hasStock;
 
     /**
      * 价格区间

@@ -1,10 +1,10 @@
-package com.wff.mall.serach.service.impl;
+package com.wff.mall.search.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.wff.common.to.es.SkuEsModel;
-import com.wff.mall.serach.config.MallElasticsearchConfig;
-import com.wff.mall.serach.constant.EsConstant;
-import com.wff.mall.serach.service.ProductSaveService;
+import com.wff.mall.search.config.MallElasticsearchConfig;
+import com.wff.mall.search.constant.EsConstant;
+import com.wff.mall.search.service.ProductSaveService;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.bulk.BulkItemResponse;
 import org.elasticsearch.action.bulk.BulkRequest;

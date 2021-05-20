@@ -1,4 +1,4 @@
-package com.wff.mall.serach.constant;
+package com.wff.mall.search.constant;
 
 /**
  * @author wff

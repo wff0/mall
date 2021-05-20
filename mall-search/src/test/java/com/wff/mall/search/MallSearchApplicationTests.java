@@ -1,7 +1,7 @@
-package com.wff.mall.serach;
+package com.wff.mall.search;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wff.mall.serach.config.MallElasticsearchConfig;
+import com.wff.mall.search.config.MallElasticsearchConfig;
 import lombok.Data;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
