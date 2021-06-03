@@ -1,6 +1,8 @@
 package com.wff.mall.product;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.wff.mall.product.dao.AttrGroupDao;
+import com.wff.mall.product.dao.SkuSaleAttrValueDao;
 import com.wff.mall.product.entity.BrandEntity;
 import com.wff.mall.product.service.BrandService;
 import com.wff.mall.product.service.CategoryService;
@@ -27,6 +29,19 @@ class MallProductApplicationTests {
 
     @Autowired
     StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
+    AttrGroupDao attrGroupDao;
+
+    @Autowired
+    SkuSaleAttrValueDao skuSaleAttrValueDao;
+
+    @Test
+    public void test() {
+//        List<SpuItemAttrGroupVo> attrGroupWithAttrsBySpuId = attrGroupDao.getAttrGroupWithAttrsBySpuId(3L, 225L);
+//        System.out.println(attrGroupWithAttrsBySpuId);
+        System.out.println(skuSaleAttrValueDao.getSaleAttrsBySpuId(3L));
+    }
 
     @Test
     public void testStringRedisTemplate() {

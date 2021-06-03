@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.wff.mall.product.dao.AttrGroupDao">
-
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.wff.mall.product.entity.AttrGroupEntity" id="attrGroupMap">
         <result property="attrGroupId" column="attr_group_id"/>
         <result property="attrGroupName" column="attr_group_name"/>
@@ -13,5 +12,20 @@
         <result property="catelogId" column="catelog_id"/>
     </resultMap>
 
+    <resultMap id="spuItemAttrGroupVo" type="com.wff.mall.product.vo.SpuItemAttrGroupVo">
+        <result column="attr_name" property="groupName"/>
+        <collection property="attrs" ofType="com.wff.mall.product.vo.SpuBaseAttrVo">
+            <result column="attr_name" property="attrName"/>
+            <result column="attr_value" property="attrValue"/>
+        </collection>
+    </resultMap>
 
+    <select id="getAttrGroupWithAttrsBySpuId" resultMap="spuItemAttrGroupVo">
+        select ppav.spu_id, pag.attr_group_name, pag.attr_group_id, ppav.attr_id, ppav.attr_name, ppav.attr_value
+        from mall_pms.pms_attr_group pag
+                     left join mall_pms.pms_attr_attrgroup_relation paar on paar.attr_group_id = pag.attr_group_id
+                     left join mall_pms.pms_product_attr_value ppav on ppav.attr_id = paar.attr_id
+        where pag.catelog_id = #{catalogId}
+          and ppav.`spu_id` = #{spuId}
+    </select>
 </mapper>

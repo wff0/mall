@@ -11,6 +11,7 @@ import com.wff.mall.product.entity.AttrGroupEntity;
 import com.wff.mall.product.service.AttrGroupService;
 import com.wff.mall.product.service.AttrService;
 import com.wff.mall.product.vo.AttrGroupWithAttrsVo;
+import com.wff.mall.product.vo.SpuItemAttrGroupVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,9 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
     @Autowired
     AttrService attrService;
+
+    @Autowired
+    AttrGroupDao attrGroupDao;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -79,6 +83,11 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         }).collect(Collectors.toList());
 
         return collect;
+    }
+
+    @Override
+    public List<SpuItemAttrGroupVo> getAttrGroupWithAttrsBySpuId(Long spuId, Long catalogId) {
+        return attrGroupDao.getAttrGroupWithAttrsBySpuId(spuId, catalogId);
     }
 
 }

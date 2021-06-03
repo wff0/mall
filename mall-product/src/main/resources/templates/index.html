@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <title>Document</title>
+   <title>首页</title>
    <link rel="stylesheet" href="/static/index/css/swiper-3.4.2.min.css">
    <link rel="stylesheet" href="/static/index/css/GL.css">
    <script src="/static/index/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
-
    <script src="/static/index/js/swiper-3.4.2.jquery.min.js" type="text/javascript" charset="utf-8"></script>
-
    <script src="/static/index/js/swiper-3.4.2.min.js"></script>
 
 </head>
@@ -23,7 +20,7 @@
       <div class="input_find">
          <input type="text" placeholder="卸妆水"/>
          <span style="background: url('/static/index/img/img_12.png') 0 -1px;"></span>
-         <a href="javascript:void(0)"><img src="/static/index/img/img_09.png"/></a>
+         <a href="/"><img src="/static/index/img/img_09.png"/></a>
       </div>
    </div>
 </div>
@@ -43,69 +40,74 @@
 </ul>
 <header>
    <div class="head">
-      <a href="javascript:void(0)"><img src="/static/index/img/img_01.png"/></a>
+      <a href="/"><img src="/static/index/img/img_01.png"/></a>
       <p>X</p>
    </div>
    <!--头部-->
    <div class="header_head">
       <div class="header_head_box">
-         <a href="javascript:void(0)" class="img"><img src="/static/index/img/logo.jpg"/></a>
+         <a href="/" class="img"><img src="/static/index/img/logo.jpg"/></a>
          <b class="header_head_p">
-            <a href="javascript:void(0)">
+            <a href="/">
                <img src="/static/index/img/img_05.png" style="border-radius: 50%;"/>
                <!--<span class="glyphicon glyphicon-map-marker"></span>-->
                北京</a>
             <div class="header_head_p_cs">
-               <a href="javascript:void(0)" style="background: #C81623;color: #fff;">北京</a>
-               <a href="javascript:void(0)">上海</a>
-               <a href="javascript:void(0)">天津</a>
-               <a href="javascript:void(0)">重庆</a>
-               <a href="javascript:void(0)">河北</a>
-               <a href="javascript:void(0)">山西</a>
-               <a href="javascript:void(0)">河南</a>
-               <a href="javascript:void(0)">辽宁</a>
-               <a href="javascript:void(0)">吉林</a>
-               <a href="javascript:void(0)">黑龙江</a>
-               <a href="javascript:void(0)">内蒙古</a>
-               <a href="javascript:void(0)">江苏</a>
-               <a href="javascript:void(0)">山东</a>
-               <a href="javascript:void(0)">安徽</a>
-               <a href="javascript:void(0)">浙江</a>
-               <a href="javascript:void(0)">福建</a>
-               <a href="javascript:void(0)">湖北</a>
-               <a href="javascript:void(0)">湖南</a>
-               <a href="javascript:void(0)">广东</a>
-               <a href="javascript:void(0)">广西</a>
-               <a href="javascript:void(0)">江西</a>
-               <a href="javascript:void(0)">四川</a>
-               <a href="javascript:void(0)">海南</a>
-               <a href="javascript:void(0)">贵州</a>
-               <a href="javascript:void(0)">云南</a>
-               <a href="javascript:void(0)">西藏</a>
-               <a href="javascript:void(0)">陕西</a>
-               <a href="javascript:void(0)">甘肃</a>
-               <a href="javascript:void(0)">青海</a>
-               <a href="javascript:void(0)">宁夏</a>
-               <a href="javascript:void(0)">新疆</a>
-               <a href="javascript:void(0)">港澳</a>
-               <a href="javascript:void(0)">台湾</a>
-               <a href="javascript:void(0)">钓鱼岛</a>
-               <a href="javascript:void(0)">海外</a>
+               <a href="/" style="background: #C81623;color: #fff;">北京</a>
+               <a href="/">上海</a>
+               <a href="/">天津</a>
+               <a href="/">重庆</a>
+               <a href="/">河北</a>
+               <a href="/">山西</a>
+               <a href="/">河南</a>
+               <a href="/">辽宁</a>
+               <a href="/">吉林</a>
+               <a href="/">黑龙江</a>
+               <a href="/">内蒙古</a>
+               <a href="/">江苏</a>
+               <a href="/">山东</a>
+               <a href="/">安徽</a>
+               <a href="/">浙江</a>
+               <a href="/">福建</a>
+               <a href="/">湖北</a>
+               <a href="/">湖南</a>
+               <a href="/">广东</a>
+               <a href="/">广西</a>
+               <a href="/">江西</a>
+               <a href="/">四川</a>
+               <a href="/">海南</a>
+               <a href="/">贵州</a>
+               <a href="/">云南</a>
+               <a href="/">西藏</a>
+               <a href="/">陕西</a>
+               <a href="/">甘肃</a>
+               <a href="/">青海</a>
+               <a href="/">宁夏</a>
+               <a href="/">新疆</a>
+               <a href="/">港澳</a>
+               <a href="/">台湾</a>
+               <a href="/">钓鱼岛</a>
+               <a href="/">海外</a>
             </div>
          </b>
          <ul>
-            <li>
-               <a href="/static//登录页面\index.html">你好，请登录</a>
+            <li th:if="${session.loginUser} !=null">
+               <a>欢迎，[[${session.loginUser.username}]]</a>
+               <!--              <a th:href="'http://member.mall.com/user/' + ${session.loginUser.id}+ '.html'">你好，[[${session.loginUser.username}]]</a>-->
             </li>
-            <li>
-               <a href="/static//注册页面\index.html" class="li_2">免费注册</a>
+            <li th:if="${session.loginUser} !=null">
+               <a href="http://auth.mall.com/oauth2.0/logout">退出登录</a>
+            </li>
+            <li th:if="${session.loginUser} ==null">
+               <a href="http://auth.mall.com/login.html">你好，请登录 </a>
+            </li>
+            <li th:if="${session.loginUser} ==null">
+               <a href="http://auth.mall.com/reg.html" class="li_2">免费注册</a>
             </li>
             <span>|</span>
-            <li>
-               <a href="javascript:void(0)">我的订单</a>
+            <li th:if="${session.loginUser} !=null">
+               <a href="http://member.mall.com/memberOrder.html">我的订单</a>
             </li>
-
-
          </ul>
       </div>
    </div>
@@ -115,12 +117,12 @@
          <input id="searchText" type="text" placeholder=""/>
          <span style="background: url('/static/index/img/img_12.png') 0 -1px;"></span>
          <!--<button><i class="glyphicon"></i></button>-->
-         <a href="javascript:search()"><img src="/static/index/img/img_09.png"/></a>
+         <a href="javascript:search();"><img src="/static/index/img/img_09.png"/></a>
       </div>
       <div class="header_ico">
          <div class="header_gw">
             <img src="/static/index/img/img_15.png"/>
-            <span><a href="/static//购物车\One_JDshop.html">我的购物车</a></span>
+            <span><a href="http://cart.mall.com/cart.html">我的购物车</a></span>
             <span>0</span>
          </div>
          <div class="header_ko">
@@ -130,70 +132,70 @@
       <div class="header_form_nav">
          <ul>
             <li>
-               <a href="javascript:void(0)" class="aaaaa">满999减300</a>
+               <a href="/" class="aaaaa">满999减300</a>
             </li>
             <li>
-               <a href="javascript:void(0)">金立S11</a>
+               <a href="/">金立S11</a>
             </li>
             <li>
-               <a href="javascript:void(0)">农用物资</a>
+               <a href="/">农用物资</a>
             </li>
             <li>
-               <a href="javascript:void(0)">保暖特惠</a>
+               <a href="/">保暖特惠</a>
             </li>
             <li>
-               <a href="javascript:void(0)">洗衣机节</a>
+               <a href="/">洗衣机节</a>
             </li>
             <li>
-               <a href="javascript:void(0)">七度空间卫生巾</a>
+               <a href="/">七度空间卫生巾</a>
             </li>
             <li>
-               <a href="javascript:void(0)">自动波箱油</a>
+               <a href="/">自动波箱油</a>
             </li>
             <li>
-               <a href="javascript:void(0)">超市</a>
+               <a href="/">超市</a>
             </li>
          </ul>
       </div>
       <nav>
          <ul>
             <li>
-               <a href="javascript:void(0)">秒杀</a>
+               <a href="/">秒杀</a>
             </li>
             <li>
-               <a href="javascript:void(0)">优惠券</a>
+               <a href="/">优惠券</a>
             </li>
             <li>
-               <a href="javascript:void(0)">闪购</a>
+               <a href="/">闪购</a>
             </li>
             <li>
-               <a href="javascript:void(0)">拍卖</a>
-            </li>
-         </ul>
-         <div class="spacer">|</div>
-         <ul>
-            <li>
-               <a href="javascript:void(0)">服饰</a>
-            </li>
-            <li>
-               <a href="javascript:void(0)">超市</a>
-            </li>
-            <li>
-               <a href="javascript:void(0)">生鲜</a>
-            </li>
-            <li>
-               <a href="javascript:void(0)">全球购</a>
+               <a href="/">拍卖</a>
             </li>
          </ul>
          <div class="spacer">|</div>
          <ul>
             <li>
-               <a href="javascript:void(0)">金融</a>
+               <a href="/">服饰</a>
+            </li>
+            <li>
+               <a href="/">超市</a>
+            </li>
+            <li>
+               <a href="/">生鲜</a>
+            </li>
+            <li>
+               <a href="/">全球购</a>
+            </li>
+         </ul>
+         <div class="spacer">|</div>
+         <ul>
+            <li>
+               <a href="/">金融</a>
             </li>
          </ul>
       </nav>
       <div class="right">
-         <a href="javascript:void(0)"><img src="/static/index/img/img_21.png"/></a>
+         <a href="/"><img src="/static/index/img/img_21.png"/></a>
       </div>
    </div>
    <!--轮播主体内容-->
@@ -201,9 +203,9 @@
       <div class="header_banner">
          <div class="header_main_left">
             <ul>
-               <li th:each="cacategory : ${categorys}">
-                  <a href="javascript:void(0)" class="header_main_left_a" th:attr="ctg-data=${cacategory.catId}"><b
-                          th:text="${cacategory.name}">家用电器</b></a>
+               <li th:each="category : ${categorys}">
+                  <a href="/" class="header_main_left_a" th:attr="ctg-data=${category.getCatId()}"
+                     th:text="${category.getName()}"><b>图书、音像、电子书刊</b></a>
                </li>
             </ul>
 
@@ -212,18 +214,18 @@
             <div class="swiper-container swiper1">
                <div class="swiper-wrapper">
                   <div class="swiper-slide">
-                     <a href="javascript:void(0)"><img src="/static/index/img/lunbo.png"/></a>
+                     <a href="/"><img src="/static/index/img/lunbo.png"/></a>
                   </div>
 
                   <div class="swiper-slide">
-                     <a href="javascript:void(0)"><img src="/static/index/img/lunbo3.png"/></a>
+                     <a href="/"><img src="/static/index/img/lunbo3.png"/></a>
                   </div>
 
                   <div class="swiper-slide">
-                     <a href="javascript:void(0)"><img src="/static/index/img/lunbo6.png"/></a>
+                     <a href="/"><img src="/static/index/img/lunbo6.png"/></a>
                   </div>
                   <div class="swiper-slide">
-                     <a href="javascript:void(0)"><img src="/static/index/img/lunbo7.png"/></a>
+                     <a href="/"><img src="/static/index/img/lunbo7.png"/></a>
                   </div>
                </div>
                <div class="swiper-pagination"></div>
@@ -231,70 +233,70 @@
                <div class="swiper-button-prev swiper-button-white"></div>
             </div>
             <div class="header_main_center_b">
-               <a href="javascript:void(0)"><img src="/static/index/img/5a13bf0bNe1606e58.jpg"/></a>
-               <a href="javascript:void(0)"><img src="/static/index/img/5a154759N5385d5d6.jpg"/></a>
+               <a href="/"><img src="/static/index/img/5a13bf0bNe1606e58.jpg"/></a>
+               <a href="/"><img src="/static/index/img/5a154759N5385d5d6.jpg"/></a>
             </div>
          </div>
          <div class="header_main_right">
             <div class="header_main_right_user">
                <div class="user_info">
                   <div class="user_info_tou">
-                     <a href="javascript:void(0)"><img class="" src="/static/index/img/touxiang.png"></a>
+                     <a href="/"><img class="" src="index/img/touxiang.png"></a>
                   </div>
                   <div class="user_info_show">
                      <p class="">Hi, 欢迎来到!</p>
                      <p>
-                        <a href="javascript:void(0)" class="">登录</a>
-                        <a href="javascript:void(0)" class="">注册</a>
+                        <a href="/" class="">登录</a>
+                        <a href="/" class="">注册</a>
                      </p>
                   </div>
                </div>
                <div class="user_info_hide">
-                  <a href="javascript:void(0)">新人福利</a>
-                  <a href="javascript:void(0)">PLUS会员</a>
+                  <a href="/">新人福利</a>
+                  <a href="/">PLUS会员</a>
                </div>
             </div>
             <div class="header_main_right_new">
                <div class="header_new">
                   <div class="header_new_t">
                      <p class="active">
-                        <a href="javascript:void(0)">促销</a>
+                        <a href="/">促销</a>
                      </p>
                      <p>
-                        <a href="javascript:void(0)">公告</a>
+                        <a href="/">公告</a>
                      </p>
-                     <a href="javascript:void(0)">更多</a>
+                     <a href="/">更多</a>
                   </div>
                   <div class="header_new_connter">
                      <div class="header_new_connter_1">
                         <ul>
                            <li>
-                              <a href="javascript:void(0)">全民纸巾大作战</a>
+                              <a href="/">全民纸巾大作战</a>
                            </li>
                            <li>
-                              <a href="javascript:void(0)">家具建材满999减300元</a>
+                              <a href="/">家具建材满999减300元</a>
                            </li>
                            <li>
-                              <a href="javascript:void(0)">黑科技冰箱，下单立减千元</a>
+                              <a href="/">黑科技冰箱，下单立减千元</a>
                            </li>
                            <li>
-                              <a href="javascript:void(0)">抢102减101神券！</a>
+                              <a href="/">抢102减101神券！</a>
                            </li>
                         </ul>
                      </div>
                      <div class="header_new_connter_1" style="display: none;">
                         <ul>
                            <li>
-                              <a href="javascript:void(0)">关于召回普利司通（天津）轮胎有限公司2个规格乘用车轮胎的公告</a>
+                              <a href="/">关于召回普利司通（天津）轮胎有限公司2个规格乘用车轮胎的公告</a>
                            </li>
                            <li>
-                              <a href="javascript:void(0)">物流推出配送员统一外呼电话"95056”</a>
+                              <a href="/">物流推出配送员统一外呼电话"95056”</a>
                            </li>
                            <li>
-                              <a href="javascript:void(0)">天府大件运营中心开仓公告</a>
+                              <a href="/">天府大件运营中心开仓公告</a>
                            </li>
                            <li>
-                              <a href="javascript:void(0)">大件物流“送装一体”服务全面升级！</a>
+                              <a href="/">大件物流“送装一体”服务全面升级！</a>
                            </li>
                         </ul>
                      </div>
@@ -305,73 +307,73 @@
                <div class="ser_box">
                   <ul>
                      <li class="ser_box_item">
-                        <a href="javascript:void(0)">
+                        <a href="/">
                            <img src="/static/index/img/huafei.png"/>
                            <span>话费</span>
                         </a>
                      </li>
                      <li class="ser_box_item">
-                        <a href="javascript:void(0)">
+                        <a href="/">
                            <img src="/static/index/img/jipiao.png"/>
                            <span>机票</span>
                         </a>
                      </li>
                      <li class="ser_box_item">
-                        <a href="javascript:void(0)">
+                        <a href="/">
                            <img src="/static/index/img/jiudian.png"/>
                            <span>酒店</span>
                         </a>
                      </li>
                      <li class="ser_box_item">
-                        <a href="javascript:void(0)">
+                        <a href="/">
                            <img src="/static/index/img/youxi.png"/>
                            <span>游戏</span>
                         </a>
                      </li>
                      <li class="ser_box_item1">
-                        <a href="javascript:void(0)">
+                        <a href="/">
                            <img src="/static/index/img/qiyegou.png"/>
                            <span>企业购</span>
                         </a>
                      </li>
                      <li class="ser_box_item1">
-                        <a href="javascript:void(0)">
+                        <a href="/">
                            <img src="/static/index/img/jiayouka.png"/>
                            <span>加油卡</span>
                         </a>
                      </li>
                      <li class="ser_box_item1">
-                        <a href="javascript:void(0)">
+                        <a href="/">
                            <img src="/static/index/img/dianyingpiao.png"/>
                            <span>电影票</span>
                         </a>
                      </li>
                      <li class="ser_box_item1">
-                        <a href="javascript:void(0)">
+                        <a href="/">
                            <img src="/static/index/img/huochepiao.png" style="height:20px;"/>
                            <span>火车票</span>
                         </a>
                      </li>
                      <li class="ser_box_item1">
-                        <a href="javascript:void(0)">
+                        <a href="/">
                            <img src="/static/index/img/zhongchou.png"/>
                            <span>众筹</span>
                         </a>
                      </li>
                      <li class="ser_box_item1">
-                        <a href="javascript:void(0)">
+                        <a href="/">
                            <img src="/static/index/img/licai.png" style="height:22px;"/>
                            <span>理财</span>
                         </a>
                      </li>
                      <li class="ser_box_item1">
-                        <a href="javascript:void(0)">
+                        <a href="/">
                            <img src="/static/index/img/lipinka.png" style="height:14px;"/>
                            <span>礼品卡</span>
                         </a>
                      </li>
                      <li class="ser_box_item1">
-                        <a href="javascript:void(0)">
+                        <a href="/">
                            <img src="/static/index/img/baitiao.png" style="height:20px;"/>
                            <span>白条</span>
                         </a>
@@ -382,16 +384,16 @@
                         <div class="ser_box_aaa_nav">
                            <ol>
                               <li class="active">
-                                 <a href="javascript:void(0)">话费</a>
+                                 <a href="/">话费</a>
                               </li>
                               <li>
-                                 <a href="javascript:void(0)">机票</a>
+                                 <a href="/">机票</a>
                               </li>
                               <li>
-                                 <a href="javascript:void(0)">酒店</a>
+                                 <a href="/">酒店</a>
                               </li>
                               <li>
-                                 <a href="javascript:void(0)">游戏</a>
+                                 <a href="/">游戏</a>
                               </li>
                            </ol>
                            <div class="ser_ol">
@@ -484,7 +486,7 @@
          </div>
       </div>
       <div class="header_banner1">
-         <a href="javascript:void(0)" class="a">
+         <a href="/" class="a">
             <img src="/static/index/img/5a1e5ce2N034ce344.png" class="aa"/>
          </a>
          <div class="header_banner1_div">
@@ -519,32 +521,8 @@
       <div class="swiper-container swiper_section_second_list_left">
          <div class="swiper-wrapper">
             <div class="swiper-slide">
-               <ul>
-                  <li>
-                     <img src="/static/index/img/section_second_list_img1.jpg" alt="">
-                     <p>花王 (Merries) 妙而舒 纸尿裤 大号 L54片 尿不湿（9-14千克） （日本官方直采） 花王 (Merries) 妙而舒 纸尿裤 大号 L54片 尿不湿（9-14千</p>
-                     <span>¥83.9</span><s>¥99.9</s>
-                  </li>
-                  <li>
-                     <img src="/static/index/img/section_second_list_img2.jpg" alt="">
-                     <p>华为mate9 4GB+32GB版 月光银 移动联通电信4G手机 双卡</p>
-                     <span>¥17.90</span><s>¥29.90</s>
-                  </li>
-                  <li>
-                     <img src="/static/index/img/section_second_list_img3.jpg" alt="">
-                     <p>超能 植翠低泡洗衣液（鲜艳亮丽）2kg/袋装（新老包装随机</p>
-                     <span>¥20.70</span><s>¥44.90</s>
-                  </li>
-                  <li>
-                     <img src="/static/index/img/section_second_list_img4.jpg" alt="">
-                     <p>长城（GreatWall）红酒 特选5年橡木桶解百纳干红葡萄酒 整</p>
-                     <span>¥399.00</span><s>¥599.00</s>
-                  </li>
-                  <li>
-                     <img src="/static/index/img/section_second_list_img5.jpg" alt="">
-                     <p>惠普(HP)暗影精灵2代Pro 15.6英寸游戏笔记本电脑(i5-7300H</p>
-                     <span>¥5999.00</span><s>¥6499.00</s>
-                  </li>
+               <ul id="seckillSkuContent">
+
                </ul>
             </div>
             <div class="swiper-slide">
@@ -599,17 +577,30 @@
          </div>
       </ul>
    </div>
-
-
 </div>
-
-
 </body>
 <script type="text/javascript">
    function search() {
       var keyword = $("#searchText").val()
       window.location.href = "http://search.mall.com/list.html?keyword=" + keyword;
    }
+
+   function to_href(skuId) {
+      location.href = "http://item.mall.com/" + skuId + ".html";
+   }
+
+   $.get("http://seckill.mall.com/currentSeckillSkus", function (resp) {
+      if (resp.data.length > 0) {
+         resp.data.forEach(function (item) {
+            $("<li onclick='to_href(" + item.skuId + ")'></li>")
+                .append($("<img style='width: 130px; height: 130px;' src='" + item.skuInfoVo.skuDefaultImg + "'/>"))
+                .append($("<p>" + item.skuInfoVo.skuTitle + "</p>"))
+                .append($("<span>￥" + item.seckillPrice + "</span>"))
+                .append($("<s>￥" + item.skuInfoVo.price + "</s>"))
+                .appendTo("#seckillSkuContent");
+         })
+      }
+   })
 
 </script>
 <script type="text/javascript" src="/static/index/js/text.js"></script>

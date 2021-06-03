@@ -1,10 +1,16 @@
 package com.wff.mall.member.controller;
 
+import com.wff.common.exception.BizCodeEnum;
 import com.wff.common.utils.PageUtils;
 import com.wff.common.utils.R;
 import com.wff.mall.member.entity.MemberEntity;
+import com.wff.mall.member.exception.PhoneExistException;
+import com.wff.mall.member.exception.UserNameExistException;
 import com.wff.mall.member.feign.CouponFeignService;
 import com.wff.mall.member.service.MemberService;
+import com.wff.mall.member.vo.MemberLoginVo;
+import com.wff.mall.member.vo.SocialUser;
+import com.wff.mall.member.vo.UserRegisterVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +33,42 @@ public class MemberController {
 
     @Autowired
     CouponFeignService couponFeignService;
+
+    @PostMapping("/oauth2/login")
+    public R login(@RequestBody SocialUser socialUser){
+
+        MemberEntity memberEntity = memberService.login(socialUser);
+        if(memberEntity != null){
+            return R.ok().setData(memberEntity);
+        }else {
+            return R.error(BizCodeEnum.SOCIALUSER_LOGIN_ERROR.getCode(), BizCodeEnum.SOCIALUSER_LOGIN_ERROR.getMsg());
+        }
+    }
+
+    @PostMapping("/login")
+    public R login(@RequestBody MemberLoginVo vo){
+
+        MemberEntity memberEntity = memberService.login(vo);
+        if(memberEntity != null){
+            return R.ok().setData(memberEntity);
+        }else {
+            return R.error(BizCodeEnum.LOGINACTT_PASSWORD_ERROR.getCode(), BizCodeEnum.LOGINACTT_PASSWORD_ERROR.getMsg());
+        }
+    }
+
+    @PostMapping("/register")
+    public R register(@RequestBody UserRegisterVo userRegisterVo){
+
+        try {
+            memberService.register(userRegisterVo);
+        } catch (PhoneExistException e) {
+            return R.error(BizCodeEnum.PHONE_EXIST_EXCEPTION.getCode(), BizCodeEnum.PHONE_EXIST_EXCEPTION.getMsg());
+        } catch (UserNameExistException e) {
+            return R.error(BizCodeEnum.USER_EXIST_EXCEPTION.getCode(), BizCodeEnum.USER_EXIST_EXCEPTION.getMsg());
+        }
+        return R.ok();
+    }
+
 
     @RequestMapping("/coupons")
     public R test() {

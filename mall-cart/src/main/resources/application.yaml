@@ -1,0 +1,19 @@
+server:
+  port: 40000
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  application:
+    name: mall-cart
+  redis:
+    host: 192.168.21.128
+    port: 6379
+  session:
+    store-type: redis
+mall:
+  thread:
+    core-size: 20
+    max-size: 200
+    keep-alive-time: 10

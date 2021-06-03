@@ -45,12 +45,37 @@ spring:
         - id: mall_host_route
           uri: lb://mall-product
           predicates:
-            - Host=mall.com
+            - Host=mall.com,item.mall.com
 
         - id: mall_search_route
           uri: lb://mall-search
           predicates:
             - Host=search.mall.com
+
+        - id: mall_auth_route
+          uri: lb://mall-auth-server
+          predicates:
+            - Host=auth.mall.com
+
+        - id: seckill_route
+          uri: lb://mall-seckill
+          predicates:
+            - Host=seckill.mall.com
+
+        - id: cart_route
+          uri: lb://mall-cart
+          predicates:
+            - Host=cart.mall.com
+
+        - id: member_route
+          uri: lb://mall-member
+          predicates:
+            - Host=member.mall.com
+
+        - id: order_route
+          uri: lb://mall-order
+          predicates:
+            - Host=order.mall.com
 
 server:
   port: 88

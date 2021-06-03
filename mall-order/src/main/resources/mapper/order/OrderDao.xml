@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.wff.mall.order.dao.OrderDao">
-
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.wff.mall.order.entity.OrderEntity" id="orderMap">
         <result property="id" column="id"/>
         <result property="memberId" column="member_id"/>
@@ -49,5 +48,10 @@
         <result property="modifyTime" column="modify_time"/>
     </resultMap>
 
-
+    <!-- 修改订单状态 -->
+    <update id="updateOrderStatus">
+        UPDATE `oms_order`
+        SET `status` = #{code}
+        WHERE order_sn = #{orderSn}
+    </update>
 </mapper>

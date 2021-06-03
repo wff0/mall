@@ -18,7 +18,6 @@ import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
@@ -146,8 +145,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     /**
      * 不使用springCache实现缓存
+     *
      * @return
      */
+    @Deprecated
     public Map<String, List<Catelog2Vo>> getCatelogJsonOlder() {
 
         String catalogJSON = redisTemplate.opsForValue().get("catalogJSON");
@@ -163,8 +164,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     /**
      * 通过redisson实现分布式锁
+     *
      * @return
      */
+    @Deprecated
     public Map<String, List<Catelog2Vo>> getCatalogJsonFromDbWithRedissonLock() {
 
         RLock lock = redisson.getLock("catalogJson-lock");
@@ -181,8 +184,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     /**
      * 通过redis原生方法实现分布式锁
+     *
      * @return
      */
+    @Deprecated
     public Map<String, List<Catelog2Vo>> getCatalogJsonFromDbWithRedisLock() {
 
         String uuid = UUID.randomUUID().toString();
@@ -212,6 +217,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         }
     }
 
+    @Deprecated
     private Map<String, List<Catelog2Vo>> getDataFromDb() {
         String catalogJSON = redisTemplate.opsForValue().get("catalogJSON");
         if (StringUtils.hasLength(catalogJSON)) {
@@ -248,8 +254,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     /**
      * 本地锁实现
+     *
      * @return
      */
+    @Deprecated
     public Map<String, List<Catelog2Vo>> getCatalogJsonFromDbWithLocalLock() {
 
         //TODO 本地锁： synchronized JUC(lock) 分布式情况下要使用分布式锁
