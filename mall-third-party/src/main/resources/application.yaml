@@ -5,14 +5,14 @@ spring:
         server-addr: 127.0.0.1:8848
     alicloud:
       sms:
-        host: https://dfsns.market.alicloudapi.com
-        path: /data/send_sms
-        appcode: 33a43c3e45a545d99a160b407ebeaedb
-      access-key: LTAI5tNzPYZC9ZL9DKyRroMm
-      secret-key: evlWPp0lzbf3W8tGLqGW62IPuRyBEn
+        host: 111111
+        path: 111111
+        appcode: 111111
+      access-key: 111111
+      secret-key: 111111
       oss:
-        endpoint: oss-cn-shanghai.aliyuncs.com
-        bucket: mall-wff
+        endpoint: 111111
+        bucket: 111111
 
   application:
     name: mall-third-party
